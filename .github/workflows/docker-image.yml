@@ -19,7 +19,7 @@ jobs:
       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ghcr.io/${{ github.repository_owner }}/laravel-docker:latest
+      run: docker build . --file ./docker/php/Dockerfile --tag ghcr.io/${{ github.repository_owner }}/laravel-docker:latest
 
     - name: Push the Docker image
       run: docker push ghcr.io/${{ github.repository_owner }}/laravel-docker:latest
