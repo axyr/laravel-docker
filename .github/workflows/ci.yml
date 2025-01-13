@@ -63,6 +63,6 @@ jobs:
       - name: Commit and push changes
         run: |
           cd target-repo
-          git add image-sha.txt
+          git add target-repo/kubernetes/laravel-single-pod/image-sha.txt
           git commit -m "Update SHA: ${{ github.sha }}"
           git push --force
