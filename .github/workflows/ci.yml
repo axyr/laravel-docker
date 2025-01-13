@@ -59,7 +59,7 @@ jobs:
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
       - name: Copy SHA file
-        run: cp image-sha.txt target-repo/
+        run: cp image-sha.txt target-repo/kubernetes/laravel-single-pod
       - name: Commit and push changes
         run: |
           cd target-repo
