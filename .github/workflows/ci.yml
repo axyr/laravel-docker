@@ -34,19 +34,37 @@ jobs:
         DB_DATABASE: database/database.sqlite
       run: php artisan test
   build:
-
     runs-on: ubuntu-latest
-
     needs: laravel-tests
-
     steps:
       - uses: actions/checkout@v4
-
       - name: Log in to GitHub Container Registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-
       - name: Build the Docker image
         run: docker build . --file ./docker/php/Dockerfile --tag ghcr.io/${{ github.repository_owner }}/laravel-docker:latest --tag ghcr.io/${{ github.repository_owner }}/laravel-docker:${{ github.sha }}
-
       - name: Push the Docker image
         run: docker push ghcr.io/${{ github.repository_owner }}/laravel-docker --all-tags
+  push_sha_to_other_repo:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout source repository
+        uses: actions/checkout@v4
+      - name: Save SHA to file
+        run: echo "${{ github.sha }}" > image-sha.txt
+      - name: Clone target repository
+        run: |
+          git clone https://github.com/axyr/laravel-kubernetes-examples target-repo
+          cd target-repo
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
+      - name: Copy SHA file
+        run: cp image-sha.txt target-repo/
+      - name: Commit and push changes
+        run: |
+          cd target-repo
+          git add image-sha.txt
+          git commit -m "Update SHA: ${{ github.sha }}"
+          git push --force
+    env:
+      GITHUB_TOKEN: ${{ secrets.API_TOKEN_GITHUB }}
