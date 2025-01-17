@@ -1,6 +1,6 @@
 ARG IMAGE_PLATFORM=linux/amd64
 
-FROM --platform=${IMAGE_PLATFORM} ghcr.io/axyr/laravel-base-image:latest
+FROM --platform=${IMAGE_PLATFORM} ghcr.io/axyr/laravel-docker-base-image:latest
 
 WORKDIR "/app"
 
