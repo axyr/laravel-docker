@@ -1,4 +1,5 @@
 FROM ghcr.io/axyr/laravel-base-image:latest
+
 WORKDIR "/app"
 
 COPY ../../. /app
