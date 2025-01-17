@@ -44,7 +44,8 @@ jobs:
 
       - name: Build the Docker image
         env:
-          IMAGE_PLATFORM: ${{ env.IMAGE_PLATFORM || 'linux/amd64' }}
+          #IMAGE_PLATFORM: ${{ env.IMAGE_PLATFORM || 'linux/amd64' }}
+          IMAGE_PLATFORM: linux/amd64
         run: |
           docker build \
             --file ./docker/php/Dockerfile \
