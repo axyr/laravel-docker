@@ -6,6 +6,4 @@ WORKDIR "/app"
 
 COPY ../../. /app
 
-RUN curl -s https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
 RUN composer install --no-dev --optimize-autoloader
