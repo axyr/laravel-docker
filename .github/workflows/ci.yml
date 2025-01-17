@@ -51,9 +51,9 @@ jobs:
           --platform $IMAGE_PLATFORM \
           --build-arg IMAGE_PLATFORM=$IMAGE_PLATFORM \
           --file ./docker/php/Dockerfile \
-          --tag ghcr.io/${{ github.repository_owner }}/laravel-docker:latest \
-          --tag ghcr.io/${{ github.repository_owner }}/laravel-docker:${{ github.sha }} \
-          --push
+          --tag ghcr.io/axyr/laravel-docker:latest \
+          --tag ghcr.io/axyr/laravel-docker:${{ github.sha }} \
+          --push .
 #  push-image-tag:
 #    runs-on: ubuntu-latest
 #    needs: build
