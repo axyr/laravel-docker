@@ -1,4 +1,6 @@
-FROM ghcr.io/axyr/laravel-base-image:latest
+ARG IMAGE_PLATFORM=linux/amd64
+
+FROM --platform=$IMAGE_PLATFORM ghcr.io/axyr/laravel-base-image:latest
 
 WORKDIR "/app"
 
