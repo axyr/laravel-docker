@@ -1,4 +1,4 @@
-name: Laravel Test
+name: CI
 
 on:
   push:
@@ -51,7 +51,7 @@ jobs:
       - name: Checkout source repository
         uses: actions/checkout@v4
       - name: Save SHA to file
-        run: echo "${{ github.sha }}" > image-sha.txt
+        run: echo "${{ github.sha }}" > image-sha.yaml
       - name: Clone target repository
         run: |
           git clone https://x-access-token:${{ secrets.API_TOKEN_GITHUB }}@github.com/axyr/laravel-kubernetes-examples target-repo
@@ -59,10 +59,10 @@ jobs:
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
       - name: Copy SHA file
-        run: cp image-sha.txt target-repo/kubernetes/laravel-single-pod
+        run: cp image-sha.yaml target-repo/kubernetes/laravel-single-pod
       - name: Commit and push changes
         run: |
           cd target-repo
-          git add kubernetes/laravel-single-pod/image-sha.txt
+          git add kubernetes/laravel-single-pod/image-sha.yaml
           git commit -m "Update SHA: ${{ github.sha }}"
           git push --force
